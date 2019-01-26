@@ -23,9 +23,7 @@ def get_song_from_lyrics(lyrics):
         print("Could not find song!")
         return None
 
-    song_name_artist_tuple = details_from_genius_url(song_url)
-    return {"songName": song_name_artist_tuple[0],
-            "artistName": song_name_artist_tuple[1]}
+    return details_from_genius_url(song_url)
 
 
 def details_from_genius_url(url):

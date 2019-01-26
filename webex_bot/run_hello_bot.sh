@@ -11,6 +11,6 @@ docker run -itd \
 -v $REPO_DIR/hello_bot:/workspace \
 -v $REPO_DIR/helpers:/workspace/helpers \
 -v $REPO_DIR/config:/opt/config \
--e PYTHONPATH=/workspace/ \
+-e PYTHONPATH=/workspace:$REPO_DIR/../.. \
 --entrypoint /workspace/run.sh \
 hello_bot $@
