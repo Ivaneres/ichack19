@@ -21,7 +21,7 @@ def get_song_from_lyrics(lyrics):
             break
     else:
         print("Could not find song!")
-        return None
+        return ("BIG_CHUNGUS", "NONE FOUND")
 
     return details_from_genius_url(song_url)
 
