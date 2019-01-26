@@ -1,2 +1,15 @@
-ic.ac.uk (ick dot ack dot uck)
-## ABEL WAS HERE ##
+# Karaoke app
+
+## Python dependency installation
+
+```
+pip install -r requirements.txt
+```
+
+## Backend
+
+To run
+
+```
+python backend.py
+```
