@@ -36,6 +36,7 @@ def details_from_genius_url(url):
     # print(pageTitle[:pageTitle.find(" Lyrics | Genius")])
     # print( pageTitle[:pageTitle.find(" Lyrics | Genius")].split(" – "))
     artist, title = pageTitle[:pageTitle.find(" Lyrics | Genius")] \
+        .replace("\xa0", " ") \
         .split(" – ")
     return artist, title
 

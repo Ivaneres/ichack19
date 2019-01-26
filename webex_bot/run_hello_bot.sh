@@ -9,8 +9,9 @@ docker run -itd \
 -p 5001:4040 \
 -p 5002:5000 \
 -v $REPO_DIR/hello_bot:/workspace \
+-v $REPO_DIR/ichack19:/workspace/ichack19 \
 -v $REPO_DIR/helpers:/workspace/helpers \
 -v $REPO_DIR/config:/opt/config \
--e PYTHONPATH=/workspace:$REPO_DIR/../.. \
+-e PYTHONPATH=/workspace:/workspace/ichack19 \
 --entrypoint /workspace/run.sh \
 hello_bot $@
