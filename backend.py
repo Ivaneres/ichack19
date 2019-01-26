@@ -1,6 +1,7 @@
 from flask import Flask
 
 backend = Flask(__name__)
+backend.run()
 
 
 @backend.route("/", methods=["GET"])
