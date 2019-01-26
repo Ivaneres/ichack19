@@ -1,14 +1,16 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 from LyricsMatch import get_song_from_lyrics
 
 backend = Flask(__name__)
-backend.run()
 
 
-@backend.route("/", methods=["GET"])
-def get_music(sung_text: str) -> str:
+@backend.route("/", methods=["POST"])
+def get_music():
     """
-    :param sung_text: lyrics that have been sung
     :return: the URL to the music video/spotify
     """
+    sung_text = request.json
     return jsonify(get_song_from_lyrics(sung_text))
+
+
+backend.run()
