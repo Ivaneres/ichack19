@@ -1,3 +1,7 @@
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+import 'dart:async';
+
 class Track {
   final String artistName;
   final String songName;
@@ -12,6 +16,9 @@ class Track {
   }
 }
 
-Track getTrack(String lyrics) {
-  var uri = Uri("http", )
+Future<Track> getTrack(String lyrics) async {
+  var resp = await http.post(
+      "https://singaroke.herokuapp.com/", body: {"lyrics": lyrics});
+  var decoded = jsonDecode(resp.body);
+  return Track.fromJson(decoded);
 }

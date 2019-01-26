@@ -11,8 +11,11 @@ def get_music():
     """
     :return: the URL to the music video/spotify
     """
-    sung_text = request.json["lyrics"]
-    return jsonify(get_song_from_lyrics(sung_text))
+    song_name_artist_tuple = get_song_from_lyrics(request.json['lyrics'])
+    json_dict =  {"songName": song_name_artist_tuple[0],
+                  "artistName": song_name_artist_tuple[1]}
+
+    return jsonify(json_dict)
 
 
 backend.run(host='0.0.0.0', port=port)
