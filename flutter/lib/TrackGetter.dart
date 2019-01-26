@@ -20,5 +20,5 @@ Future<Track> getTrack(String lyrics) async {
   var resp = await http.post(
       "https://singaroke.herokuapp.com/", body: {"lyrics": lyrics});
   var decoded = jsonDecode(resp.body);
-  return Track.fromJson(decoded);
-}
+  return Track.fromJson(decoded);}
+
