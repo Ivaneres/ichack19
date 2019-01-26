@@ -14,6 +14,7 @@ environment:
 
 dependencies:
   speech_recognition: "^0.3.0"
+  http: ^0.12.0+1
   flutter:
     sdk: flutter
 
