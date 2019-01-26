@@ -2,7 +2,7 @@ maxResults = 50
 
 import googlesearch
 
-gSearchURLs = lambda search: googlesearch.search(search, stop=maxResults)
+gSearchURLs = lambda search: googlesearch.search(search, stop=maxResults, pause=0)
 
 import requests
 from bs4 import BeautifulSoup
