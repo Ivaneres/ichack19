@@ -13,6 +13,8 @@ from helpers import (read_yaml_data,
                      find_webhook_by_name,
                      delete_webhook, create_webhook)
 
+import LyricsMatch
+
 flask_app = Flask(__name__)
 teams_api = None
 
@@ -49,8 +51,18 @@ def teamswebhook():
         me = teams_api.people.me()
         if message.personId == me.id:
             return 'OK'
+        #else:
+        #    teams_api.messages.create(room.id, text='Hello, person who has email '+str(email))
+        #    teams_api.messages.create(room.id, text="Your message was: " + str(message.text))
+        msg = message.text
+        # Assume is lyrics
+        if "/help" in msg:
+            teams_api.messages.create(room.id, text="Usage: [lyrics] - LyricsBot will return what song it thinks you're singing.")
+            teams_api.messages.create(room.id, text="  /help - LyricsBot will print out this help message.")
         else:
-            teams_api.messages.create(room.id, text='Hello, person who has email '+str(email))
+            (artist, title) = LyricsMatch.get_song_from_lyrics(msg)
+            teams_api.messages.create(room.id, text="LyricsBot thinks the song is " + title + ", by " + artist)
+            teams_api.messages.create(room.id, text="YouTube link: " + LyricsMatch.gSearchURLs(title + " - " + artist + " site:youtube.com").__next__())
     else:
         print('received none post request, not handled!')
 
