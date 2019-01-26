@@ -54,7 +54,14 @@ def details_from_genius_url(url):
         return FAIL
     return artist, title
     
-
+def find_mbiz_url(artist, title):
+    request_url = "http://www.megalobiz.com/search/all?qry=" + title + " - " + artist
+    page = requests.get(request_url)
+    html = BeautifulSoup(page.text, "html.parser")
+    urldiv = html.find("div", class_="pro_part mid")#.get_text()
+    song = urldiv.find("a")
+    link = song.attrs["href"]
+    return "http://www.megalobiz.com" + link
 
 
 # @param url - url from megalobiz.com
@@ -68,7 +75,7 @@ def find_lyrics_from_mbiz_url(url):
     lyrics = html.find("div", class_="lyrics_details entity_more_info").get_text()
     lyrics = [l for l in lyrics.split("\n") if l and l[1].isnumeric()]
     lyrics = [l.split("]") for l in lyrics]
-    print(lyrics)
+    #print(lyrics)
     lyrics = [(str2s(timestamp[1:]), line) for (timestamp, line) in lyrics]
     return lyrics
 

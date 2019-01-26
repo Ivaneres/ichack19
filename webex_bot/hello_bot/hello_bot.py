@@ -62,7 +62,7 @@ def teamswebhook():
         else:
             (artist, title) = LyricsMatch.get_song_from_lyrics(msg)
             teams_api.messages.create(room.id, text="LyricsBot thinks the song is " + title + ", by " + artist)
-            teams_api.messages.create(room.id, text="YouTube link: " + LyricsMatch.gSearchURLs(title + " - " + artist + " site:youtube.com")[0])
+            teams_api.messages.create(room.id, text="YouTube link: " + LyricsMatch.gSearchURLs(title + " - " + artist + " site:youtube.com").__next__())
     else:
         print('received none post request, not handled!')
 
