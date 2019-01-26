@@ -7,6 +7,8 @@ gSearchURLs = lambda search: googlesearch.search(search, stop=maxResults, pause=
 import requests
 from bs4 import BeautifulSoup
 
+FAIL = ("NONE FOUND", "BIG CHUNGUS")
+
 
 ## megalobiz.com
 
@@ -16,12 +18,12 @@ def get_song_from_lyrics(lyrics):
     # results = googlesearch.search(lyrics + " site:genius.com", stop=maxResults)
     results = gSearchURLs(lyrics + " site:genius.com")
     for result in results:
-        if "GENIUS.COM" in result.upper():
+        if result.upper().endswith("LYRICS"):
             song_url = result
             break
     else:
         print("Could not find song!")
-        return ("BIG_CHUNGUS", "NONE FOUND")
+        return FAIL
 
     return details_from_genius_url(song_url)
 
@@ -35,10 +37,24 @@ def details_from_genius_url(url):
     # print(pageTitle)
     # print(pageTitle[:pageTitle.find(" Lyrics | Genius")])
     # print( pageTitle[:pageTitle.find(" Lyrics | Genius")].split(" – "))
-    artist, title = pageTitle[:pageTitle.find(" Lyrics | Genius")] \
-        .replace("\xa0", " ") \
-        .split(" – ")
+    songTitleArtist = pageTitle[:pageTitle.find(" Lyrics | Genius")] \
+                      .replace("\xa0", " ") 
+    
+    for splitter in [" – ", " - ", "–", "-"]:
+        #artist, title = .split()
+        res = songTitleArtist.split(splitter)
+        if len(res) > 1:
+            artist, title = res
+            break
+    else:
+        # Failsafe!
+        print("Fail: " + songTitleArtist)
+        print(pageTitle)
+        print(url)
+        return FAIL
     return artist, title
+    
+
 
 
 # @param url - url from megalobiz.com
