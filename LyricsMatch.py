@@ -185,7 +185,7 @@ def find_lyrics_from_mbiz_url(url):
     except:
         raise IndentationError
     lyrics = [l for l in lyrics.split("\n") if l and l[1].isnumeric()]
-    lyrics = [l.split("]") for l in lyrics]
+    lyrics = [l.split("]", maxsplit=1) for l in lyrics]
     #print(lyrics)
     lyrics = [(str2s(timestamp[1:]), line) for (timestamp, line) in lyrics]
     return lyrics
