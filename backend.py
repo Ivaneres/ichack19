@@ -5,13 +5,10 @@ import os
 backend = Flask(__name__)
 
 @backend.route("/", methods=["POST"])
-def index(a, b):
+def index():
     """
     :return: the URL to the music video/spotify
     """
-    print(a)
-    print([ i for i in ['wsgi.input']])
-    print(b)
     print(dir(request))
     print(str(request))
     print(request.get_data())
