@@ -1,5 +1,6 @@
 body {
     font-family: 'Courier New', Courier, monospace;
+    text-align: center;
 }
 
 .startbutton {
@@ -25,4 +26,9 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+}
+
+#voice-recognition-output {
+    padding-top: 150px;
+    font-size: 30px;
 }
