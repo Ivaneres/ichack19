@@ -44,4 +44,21 @@ recognition.onresult = function(event) {
   console.log("Final: ",final_transcript);
 
   console.log("Simple: ", event.results[0][0].transcript);
+  
+  if (final_transcript !== "") {
+    queryLyricServer(final_transcript);
+  }
+}
+
+queryLyricServer = function(lyrics) {
+// Content-Type: application/json 
+// POST
+// {"lyrics":"string"}
+// https://singaroke.herokuapp.com/
+  
+  var xhttp = new XMLHttpRequest();
+  xhttp.open("POST", "https://singaroke.herokuapp.com/", false); // Not async
+  xhttp.setRequestHeader("Content-Type", "application/json");
+  xhttp.send("lyrics="+lyrics);
+  document.getElementById("output").innerHTML = xhttp.responseText;
 }
