@@ -2,11 +2,16 @@
 <html>
   <head>
     <title>Dictation example </title>
-
     <script type="text/javascript" src="voice.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
   </head>
   <body>
-   <input type="button" onclick="recognition.start();" value="Recognize text" />
-   <input type="button" onclick="recognition.stop();" value="stop recognition" />
+    <div class="buttons">
+      <input type="button" class="startbutton" onclick="recognition.start();" value="Recognize text" />
+      <input type="button" class="stopbutton" onclick="recognition.stop();" value="Stop recognition" />
+   </div>
+   <div id="text">
+     
+   </div>
 </body>
 </html>
