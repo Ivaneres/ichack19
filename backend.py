@@ -1,7 +1,9 @@
 from flask import Flask, jsonify, request
 from LyricsMatch import *
 from fuzzywuzzy import process
-import os
+import os, youtube_dl
+
+DL_OPTS = {"format":"bestaudio/best", "default_search":"ytsearch"}
 
 backend = Flask(__name__)
 
@@ -20,6 +22,13 @@ def index():
     timestamps = find_lyrics_from_mbiz_url(find_mbiz_url(artist, song))
     mostLikely, prob = process.extractOne(lyrics, timestamps, processor=lambda x: x[1])
     
+    ydl = youtube_dl.YoutubeDL(DL_OPTS)
+    result = ydl.extract_info(song + " " + artist, download=False)
+    if "entries" in result:
+        video = result["entries"][0]
+    else:
+        video = result
+    
     # Will give us a tuple (timestamp, lyric)
     # Want to return next timestamp, unless is last.
     
@@ -28,7 +37,8 @@ def index():
     
     json_dict = {"songName"   : song,
                  "artistName" : artist,
-                 "timestamp"  : mostLikely[0]}
+                 "timestamp"  : mostLikely[0],
+                 "mp3url"     : video["url"]}
                  # To compensate for delays
     
     return jsonify(json_dict)
