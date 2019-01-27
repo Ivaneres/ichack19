@@ -10,7 +10,7 @@ def index(a, b):
     :return: the URL to the music video/spotify
     """
     print(a)
-    print(a['wsgi.input'].get_json())
+    print(dir(['wsgi.input']))
     print(b)
     print(dir(request))
     print(str(request))
