@@ -1,3 +1,0 @@
-[submodule "webex_bot/webexteamssdk"]
-	path = webex_bot/webexteamssdk
-	url = git@github.com:CiscoDevNet/webexteamssdk.git
