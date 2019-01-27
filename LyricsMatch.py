@@ -156,7 +156,7 @@ def details_from_genius_url(url):
         print(pageTitle)
         print(url)
         return FAIL
-    return artist, title
+    return artist.strip(), title.strip()
     
 def find_mbiz_url(artist, title):
     request_url = "http://www.megalobiz.com/search/all?qry=" + title + " - " + artist
