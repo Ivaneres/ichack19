@@ -11,13 +11,14 @@ def get_music(a, b):
     """
     print(a)
     print(b)
-    js = request.get_json()
-    print(js)
-    song_name_artist_tuple = get_song_from_lyrics(js['lyrics'])
-    json_dict =  {"songName": song_name_artist_tuple[0],
-                  "artistName": song_name_artist_tuple[1]}
+    with app.test_request_context():
+        js = request.get_json()
+        print(js)
+        song_name_artist_tuple = get_song_from_lyrics(js['lyrics'])
+        json_dict =  {"songName": song_name_artist_tuple[0],
+                      "artistName": song_name_artist_tuple[1]}
 
-    return jsonify(json_dict)
+        return jsonify(json_dict)
 
 if __name__ == "__main__":
     try:
