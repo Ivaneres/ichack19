@@ -2,9 +2,6 @@ from flask import Flask, jsonify, request
 from LyricsMatch import get_song_from_lyrics
 import os
 
-port = int(os.environ.get('PORT', 33507))
-backend = Flask(__name__)
-
 
 @backend.route("/", methods=["POST"])
 def get_music():
@@ -17,5 +14,9 @@ def get_music():
 
     return jsonify(json_dict)
 
-
-backend.run(host='0.0.0.0', port=port)
+if __name__ == "__main__":
+    try:
+        backend.run(host='0.0.0.0', port=port)
+    except OSError as os:
+        print("Failed to start, not bothering!")
+        return 0
