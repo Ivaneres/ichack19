@@ -12,6 +12,8 @@ def get_music(a, b):
     print(a)
     print(b)
     with backend.test_request_context():
+        print(dir(request))
+        print(str(request))
         js = request.get_json()
         print(js)
         song_name_artist_tuple = get_song_from_lyrics(js['lyrics'])
