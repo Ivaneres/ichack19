@@ -10,6 +10,7 @@ def index():
     """
     :return: the URL to the music video/spotify
     """
+    js = request.get_json()
     song_name_artist_tuple = get_song_from_lyrics(js['lyrics'])
     
     song = song_name_artist_tuple[0]
