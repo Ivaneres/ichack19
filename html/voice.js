@@ -57,8 +57,12 @@ queryLyricServer = function(lyrics) {
 // https://singaroke.herokuapp.com/
   
   var xhttp = new XMLHttpRequest();
-  xhttp.open("POST", "https://singaroke.herokuapp.com/", false); // Not async
+  xhttp.open("POST", "http://singaroke.herokuapp.com/", true); // Not async
   xhttp.setRequestHeader("Content-Type", "application/json");
+  
+  xhttp.onreadystatechange = function() {
+    console.log(xhttp.responseText);
+  }
+  
   xhttp.send("lyrics="+lyrics);
-  document.getElementById("output").innerHTML = xhttp.responseText;
 }
