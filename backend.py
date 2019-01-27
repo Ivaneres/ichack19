@@ -23,7 +23,7 @@ def index():
     mostLikely, prob = process.extractOne(lyrics, timestamps, processor=lambda x: x[1])
     
     ydl = youtube_dl.YoutubeDL(DL_OPTS)
-    result = ydl.extract_info(song + " " + artist, download=False)
+    result = ydl.extract_info(song + " " + artist + " lyrics", download=False)
     if "entries" in result:
         video = result["entries"][0]
     else:
