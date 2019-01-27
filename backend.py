@@ -49,8 +49,8 @@ def index():
 @backend.route("/", methods=["OPTIONS"])
 def handleCORS():
     resp = flask.Response("")
-    resp.headers['Access-Control-Allow-Origin'] = 'http://example.com'
-    resp.headers['Access-Control-Allow-Origin'] = '*'
+    resp.headers['Access-Control-Allow-Origin'] = 'http://herokuapp.com'
+    # resp.headers['Access-Control-Allow-Origin'] = '*'
     resp.headers['Access-Control-Allow-Methods'] = 'POST'
     resp.headers['Access-Control-Allow-Headers'] = 'Content-Type'
     return resp
