@@ -2,6 +2,7 @@ from flask import Flask, jsonify, request
 from LyricsMatch import *
 from fuzzywuzzy import process
 import os
+import time
 
 backend = Flask(__name__)
 
@@ -10,8 +11,10 @@ def index():
     """
     :return: the URL to the music video/spotify
     """
+    start = time.time()
     js = request.get_json()
-    song_name_artist_tuple = get_song_from_lyrics(js['lyrics'])
+    lyrics = js['lyrics']
+    song_name_artist_tuple = get_song_from_lyrics(lyrics)
     
     song = song_name_artist_tuple[0]
     artist = song_name_artist_tuple[1]
@@ -24,9 +27,12 @@ def index():
     
     mostLikelyTimestamp = timestamps[(timestamps.index(mostLikely)+1) % len(timestamps)]
     
+    end = time.time()
+    
     json_dict = {"songName"   : song,
                  "artistName" : artist,
-                 "timestamp"  : mostLikelyTimeStamp }
+                 "timestamp"  : mostLikelyTimeStamp + end - start}
+                 # To compensate for delays
     
     return jsonify(json_dict)
 
