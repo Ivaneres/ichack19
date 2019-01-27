@@ -1,4 +1,5 @@
 from flask import Flask, jsonify, request
+from flask_cors import CORS
 from LyricsMatch import *
 from fuzzywuzzy import process
 import os, youtube_dl
@@ -7,6 +8,7 @@ import json
 DL_OPTS = {"format":"bestaudio/best", "default_search":"ytsearch"}
 
 backend = Flask(__name__)
+CORS(backend)
 
 @backend.route("/", methods=["POST"])
 def index():
@@ -45,19 +47,19 @@ def index():
                  # To compensate for delays
 
     resp = jsonify(json_dict)
-    resp.headers.add("Access-Control-Allow-Origin", "*")
+    # resp.headers.add("Access-Control-Allow-Origin", "*")
     return resp
 
-@backend.route("/", methods=["OPTIONS"])
-def handleCORS():
-    resp = flask.Response("")
-    # resp.headers['Access-Control-Allow-Origin'] = 'http://herokuapp.com'
-    resp.headers['Access-Control-Allow-Origin'] = '*'
-    # resp.headers['Access-Control-Allow-Methods'] = 'POST'
-    resp.headers['Access-Control-Allow-Methods'] = '*'
-    # POST resp.headers['Access-Control-Allow-Headers'] = 'Content-Type'
-    resp.headers['Access-Control-Allow-Headers'] = '*'
-    return resp
+# @backend.route("/", methods=["OPTIONS"])
+# def handleCORS():
+#     resp = flask.Response("")
+#     # resp.headers['Access-Control-Allow-Origin'] = 'http://herokuapp.com'
+#     resp.headers['Access-Control-Allow-Origin'] = '*'
+#     # resp.headers['Access-Control-Allow-Methods'] = 'POST'
+#     resp.headers['Access-Control-Allow-Methods'] = '*'
+#     # POST resp.headers['Access-Control-Allow-Headers'] = 'Content-Type'
+#     resp.headers['Access-Control-Allow-Headers'] = '*'
+#     return resp
 
 if __name__ == "__main__":
     try:
