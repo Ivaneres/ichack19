@@ -20,7 +20,7 @@ def index():
     artist = song_name_artist_tuple[1]
     
     timestamps = find_lyrics_from_mbiz_url(find_mbiz_url(artist, song))
-    mostLikely = process.extractOne(lyrics, timestamps, processor=lambda x: x[1])
+    mostLikely, prob = process.extractOne(lyrics, timestamps, processor=lambda x: x[1])
     
     # Will give us a tuple (timestamp, lyric)
     # Want to return next timestamp, unless is last.
