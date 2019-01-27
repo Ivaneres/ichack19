@@ -44,9 +44,7 @@ def index():
                  "mp3url"     : video["url"]}
                  # To compensate for delays
 
-    stuff = jsonify(json_dict)
-    print(stuff)
-    return stuff
+    return jsonify(json_dict)
 
 @backend.route("/", methods=["OPTIONS"])
 def handleCORS():
