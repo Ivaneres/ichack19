@@ -23,12 +23,12 @@ def index():
     # Will give us a tuple (timestamp, lyric)
     # Want to return next timestamp, unless is last.
     
-    mostLikelyTimestamp = timestamps[(timestamps.index(mostLikely)+1) % len(timestamps)]
+    #mostLikelyTimestamp = timestamps[(timestamps.index(mostLikely)+1) % len(timestamps)]
    
     
     json_dict = {"songName"   : song,
                  "artistName" : artist,
-                 "timestamp"  : mostLikelyTimestamp[0]}
+                 "timestamp"  : mostLikely[0]}
                  # To compensate for delays
     
     return jsonify(json_dict)
