@@ -1,5 +1,6 @@
 body {
     font-family: 'Courier New', Courier, monospace;
+    text-align: center;
 }
 
 .startbutton {
@@ -21,8 +22,19 @@ body {
 }
 
 .buttons {
+    z-index: 1;
     position: absolute;
-    top: 50%;
+    top: 30%;
     left: 50%;
     transform: translate(-50%, -50%);
+}
+
+#voice-recognition-output {
+    padding-top: 50px;
+    font-size: 30px;
+}
+
+#ytplayer {
+    position: relative;
+    padding-top: 250px;
 }
