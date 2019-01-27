@@ -14,8 +14,8 @@ def index():
     lyrics = js['lyrics']
     song_name_artist_tuple = get_song_from_lyrics(lyrics)
     
-    song = song_name_artist_tuple[0]
-    artist = song_name_artist_tuple[1]
+    song = song_name_artist_tuple[1]
+    artist = song_name_artist_tuple[0]
     
     timestamps = find_lyrics_from_mbiz_url(find_mbiz_url(artist, song))
     mostLikely, prob = process.extractOne(lyrics, timestamps, processor=lambda x: x[1])
