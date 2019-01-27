@@ -159,6 +159,8 @@ def details_from_genius_url(url):
     return artist.strip(), title.strip()
     
 def find_mbiz_url(artist, title):
+    if title == FAIL[1]:
+        return "BIG CHUNGA"
     request_url = "http://www.megalobiz.com/search/all?qry=" + title + " - " + artist
     page = requests.get(request_url)
     html = BeautifulSoup(page.text, "html.parser")
@@ -171,6 +173,8 @@ def find_mbiz_url(artist, title):
 # @param url - url from megalobiz.com
 # @return - list of (timestamp in s, lyric)
 def find_lyrics_from_mbiz_url(url):
+    if url == "BIG CHUNGA":
+        return [(0, "chungus")]
     # Works with megalobiz.com
     page = requests.get(url)
     html = BeautifulSoup(page.text, "html.parser")

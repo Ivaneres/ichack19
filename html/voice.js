@@ -42,12 +42,7 @@ recognition.onresult = function(event) {
       // Verify if the recognized text is the last with the isFinal property
       if (event.results[i].isFinal) {
           final_transcript += event.results[i][0].transcript;
-          sendApiRequest(final_transcript, function(obj){
-            var obj2 = JSON.parse(obj);
-            console.log(obj2);
-            console.log(obj2.items[0].id.videoId);
-            document.getElementById("ytplayer").innerHTML = '<iframe width="420" height="315" src="https://www.youtube.com/embed/' + JSON.parse(obj)["items"][0]["id"]["videoId"] + '?autoplay=1" frameborder="0" allow="autoplay"></iframe>'
-          });
+          queryLyricServer(final_transcript);
           
       } else {
           interim_transcript += event.results[i][0].transcript;
@@ -69,19 +64,23 @@ recognition.onresult = function(event) {
   }
 }
 
-// queryLyricServer = function(lyrics) {
-// // Content-Type: application/json 
-// // POST
-// // {"lyrics":"string"}
-// // https://singaroke.herokuapp.com/
+ queryLyricServer = function(lyrics) {
+ // Content-Type: application/json 
+ // POST
+ // {"lyrics":"string"}
+ // https://singaroke.herokuapp.com/
   
-//   var xhttp = new XMLHttpRequest();
-//   xhttp.open("POST", "http://singaroke.herokuapp.com/", true); // Not async
-//   xhttp.setRequestHeader("Content-Type", "application/json");
-  
-//   xhttp.onreadystatechange = function() {
-//     console.log(xhttp.responseText);
-//   }
-  
-//   xhttp.send("lyrics="+lyrics);
-// }
+   fetch("https://singarokev2.herokuapp.com/", {
+            method:"POST",
+            headers: {
+                "Content-Type": "application/json"},
+            body: JSON.stringify({"lyrics":lyrics})
+        }).then(response => {return response.json();})
+          .then(data => {sendApiRequest(data.artistName + " - " + data.songName + " lyrics", function(obj){
+                        var obj2 = JSON.parse(obj);
+                        console.log(obj2);
+                        console.log(obj2.items[0].id.videoId);
+                        document.getElementById("ytplayer").innerHTML = '<iframe width="420" height="315" src="https://www.youtube.com/embed/' + JSON.parse(obj)["items"][0]["id"]["videoId"] + '?autoplay=1" frameborder="0" allow="autoplay"></iframe>'
+          })})
+          .catch(err => {console.log("Big chungus: " + err);});
+ }
