@@ -12,7 +12,9 @@ def index():
     """
     :return: the URL to the music video/spotify
     """
+    print(request.get_data())
     js = request.get_json()
+    
     lyrics = js['lyrics']
     song_name_artist_tuple = get_song_from_lyrics(lyrics)
     
@@ -45,7 +47,7 @@ def index():
 
 @backend.route("/", methods=["OPTIONS"])
 def handleCORS():
-    resp = flask.Response("OK")
+    resp = flask.Response("")
     resp.headers['Access-Control-Allow-Origin'] = '*'
     return resp
     
