@@ -40,6 +40,7 @@ recognition.onresult = function(event) {
   // Choose which result may be useful for you
 
   console.log("Interim: ", interim_transcript);
+  document.getElementById("voice-recognition-output").innerHTML = interim_transcript;
 
   console.log("Final: ",final_transcript);
 
