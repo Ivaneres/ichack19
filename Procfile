@@ -1,1 +1,1 @@
-web: gunicorn backend:get_music
+web: gunicorn backend:index
