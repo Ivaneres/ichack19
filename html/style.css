@@ -30,11 +30,11 @@ body {
 }
 
 #voice-recognition-output {
-    padding-top: 50px;
+    padding-top: 20px;
     font-size: 30px;
 }
 
 #ytplayer {
     position: relative;
-    padding-top: 250px;
+    padding-top: 20px;
 }

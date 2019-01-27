@@ -22,10 +22,12 @@ function sendApiRequest(s, callback) {
 
 recognition.onstart = function() { 
   console.log('Voice recognition activated. Try speaking into the microphone.');
+  $("#voice-recognition-output").html("Listening...");
 }
 
 recognition.onspeechend = function() {
   console.log('You were quiet for a while so voice recognition turned itself off.');
+  $("#voice-recognition-output").html("Processing...");
 }
 
 recognition.onerror = function(event) {
@@ -43,6 +45,8 @@ recognition.onresult = function(event) {
       if (event.results[i].isFinal) {
           final_transcript += event.results[i][0].transcript;
           queryLyricServer(final_transcript);
+          recognition.stop();
+          $('.buttons').fadeOut();
           
       } else {
           interim_transcript += event.results[i][0].transcript;
@@ -77,10 +81,14 @@ recognition.onresult = function(event) {
             body: JSON.stringify({"lyrics":lyrics})
         }).then(response => {return response.json();})
           .then(data => {sendApiRequest(data.artistName + " - " + data.songName + " lyrics", function(obj){
+                        document.getElementById("voice-recognition-output").innerHTML = data.songName + " - " + data.artistName;
                         var obj2 = JSON.parse(obj);
                         console.log(obj2);
                         console.log(obj2.items[0].id.videoId);
-                        document.getElementById("ytplayer").innerHTML = '<iframe width="420" height="315" src="https://www.youtube.com/embed/' + JSON.parse(obj)["items"][0]["id"]["videoId"] + '?autoplay=1" frameborder="0" allow="autoplay"></iframe>'
+                        console.log(data.timestamp);
+                        document.getElementById("ytplayer").innerHTML = '<iframe width="1200" height="600" src="https://www.youtube.com/embed/' + JSON.parse(obj)["items"][0]["id"]["videoId"] + '?autoplay=1&start=' + (Math.round(data.timestamp) + 5) + '" frameborder="0" allow="autoplay"></iframe>'
           })})
-          .catch(err => {console.log("Big chungus: " + err);});
+          .catch(err => {
+            $("#voice-recognition-output").html("Error - not found :(");
+            console.log("Big chungus: " + err);});
  }
