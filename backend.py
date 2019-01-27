@@ -24,8 +24,12 @@ def index():
     song = song_name_artist_tuple[1]
     artist = song_name_artist_tuple[0]
 
-    timestamps = find_lyrics_from_mbiz_url(find_mbiz_url(artist, song))
-    mostLikely, prob = process.extractOne(lyrics, timestamps, processor=lambda x: x[1])
+    try:
+        timestamps = find_lyrics_from_mbiz_url(find_mbiz_url(artist, song))
+        mostLikely, prob = process.extractOne(lyrics, timestamps, processor=lambda x: x[1])
+    except IndentationError:
+        mostLikely = (0, "CHUNGUS") # we have no lyric information, 0 second start.
+        prob = 100
 
     ydl = youtube_dl.YoutubeDL(DL_OPTS)
     result = ydl.extract_info(song + " " + artist + " lyrics", download=False)

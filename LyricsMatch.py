@@ -104,7 +104,7 @@ maxResults = 50
 
 import googlesearch, random
 
-gSearchURLs = lambda search: googlesearch.search(search, 
+gSearchURLs = lambda search: googlesearch.search(search,
                 stop=maxResults, pause=0,
                 user_agent=random.choice(user_agents))
 
@@ -142,8 +142,8 @@ def details_from_genius_url(url):
     # print(pageTitle[:pageTitle.find(" Lyrics | Genius")])
     # print( pageTitle[:pageTitle.find(" Lyrics | Genius")].split(" – "))
     songTitleArtist = pageTitle[:pageTitle.find(" Lyrics | Genius")] \
-                      .replace("\xa0", " ") 
-    
+                      .replace("\xa0", " ")
+
     for splitter in [" – ", " - ", "–", "-"]:
         #artist, title = .split()
         res = songTitleArtist.split(splitter)
@@ -157,7 +157,7 @@ def details_from_genius_url(url):
         print(url)
         return FAIL
     return artist.strip(), title.strip()
-    
+
 def find_mbiz_url(artist, title):
     if title == FAIL[1]:
         return "BIG CHUNGA"
@@ -174,7 +174,7 @@ def find_mbiz_url(artist, title):
 # @return - list of (timestamp in s, lyric)
 def find_lyrics_from_mbiz_url(url):
     if url == "BIG CHUNGA":
-        return [(0, "chungus")]
+        raise IndentationError
     # Works with megalobiz.com
     page = requests.get(url)
     html = BeautifulSoup(page.text, "html.parser")
