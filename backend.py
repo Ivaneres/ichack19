@@ -19,4 +19,4 @@ if __name__ == "__main__":
         backend.run(host='0.0.0.0', port=port)
     except OSError as os:
         print("Failed to start, not bothering!")
-        return 0
+        
