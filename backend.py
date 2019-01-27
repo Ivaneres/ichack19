@@ -31,7 +31,7 @@ def index():
     
     json_dict = {"songName"   : song,
                  "artistName" : artist,
-                 "timestamp"  : mostLikelyTimestamp + end - start}
+                 "timestamp"  : mostLikelyTimestamp[0] + end - start}
                  # To compensate for delays
     
     return jsonify(json_dict)
