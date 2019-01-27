@@ -180,7 +180,10 @@ def find_lyrics_from_mbiz_url(url):
     html = BeautifulSoup(page.text, "html.parser")
     [h.extract() for h in html('script')]
     # lyrics = html.find("div", class_="tab-pane fade active in").get_text()
-    lyrics = html.find("div", class_="lyrics_details entity_more_info").get_text()
+    try:
+        lyrics = html.find("div", class_="lyrics_details entity_more_info").get_text()
+    except:
+        raise IndentationError
     lyrics = [l for l in lyrics.split("\n") if l and l[1].isnumeric()]
     lyrics = [l.split("]") for l in lyrics]
     #print(lyrics)
