@@ -11,7 +11,9 @@ def get_music(a, b):
     """
     print(a)
     print(b)
-    song_name_artist_tuple = get_song_from_lyrics(request.json['lyrics'])
+    js = request.get_json()
+    print(js)
+    song_name_artist_tuple = get_song_from_lyrics(js['lyrics'])
     json_dict =  {"songName": song_name_artist_tuple[0],
                   "artistName": song_name_artist_tuple[1]}
 
