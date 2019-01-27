@@ -44,15 +44,19 @@ def index():
                  "mp3url"     : video["url"]}
                  # To compensate for delays
 
-    return jsonify(json_dict)
+    resp = jsonify(json_dict)
+    resp.headers.add("Access-Control-Allow-Origin", "*")
+    return resp
 
 @backend.route("/", methods=["OPTIONS"])
 def handleCORS():
     resp = flask.Response("")
-    resp.headers['Access-Control-Allow-Origin'] = 'http://herokuapp.com'
-    # resp.headers['Access-Control-Allow-Origin'] = '*'
-    resp.headers['Access-Control-Allow-Methods'] = 'POST'
-    resp.headers['Access-Control-Allow-Headers'] = 'Content-Type'
+    # resp.headers['Access-Control-Allow-Origin'] = 'http://herokuapp.com'
+    resp.headers['Access-Control-Allow-Origin'] = '*'
+    # resp.headers['Access-Control-Allow-Methods'] = 'POST'
+    resp.headers['Access-Control-Allow-Methods'] = '*'
+    # POST resp.headers['Access-Control-Allow-Headers'] = 'Content-Type'
+    resp.headers['Access-Control-Allow-Headers'] = '*'
     return resp
 
 if __name__ == "__main__":
