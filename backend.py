@@ -43,6 +43,11 @@ def index():
     
     return jsonify(json_dict)
 
+@backend.route("/", methods=["OPTIONS"])
+def handleCORS():
+    resp = flask.Response("OK")
+    resp.headers['Access-Control-Allow-Origin'] = '*'
+    return resp
     
 if __name__ == "__main__":
     try:
