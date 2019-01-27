@@ -11,7 +11,7 @@ def get_music(a, b):
     """
     print(a)
     print(b)
-    with app.test_request_context():
+    with backend.test_request_context():
         js = request.get_json()
         print(js)
         song_name_artist_tuple = get_song_from_lyrics(js['lyrics'])
