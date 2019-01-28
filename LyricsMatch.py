@@ -108,11 +108,28 @@ gSearchURLs = lambda search: googlesearch.search(search,
                 stop=maxResults, pause=0,
                 user_agent=random.choice(user_agents))
 
+from urllib.error import HTTPError
 import requests
 from bs4 import BeautifulSoup
 
 FAIL = ("NONE FOUND", "BIG CHUNGUS")
 
+class BotBannedError(ZeroDivisionError):
+    pass
+
+def ddg_genius_url_from_lyrics(lyrics):
+    url = 'https://duckduckgo.com/html/'
+    params = {
+            'q': lyrics + ' site:genius.com',
+            's': '0',
+    }
+    page = requests.get(url, data=params)
+    html = BeautifulSoup(page.text, "html.parser")
+    links = html.find_all(class_='result__url')
+    for link in links:
+        if link.text.upper().strip().endswith('LYRICS'):
+            return 'https://' + link
+    raise BotBannedError('oof')
 
 ## megalobiz.com
 
@@ -120,14 +137,24 @@ FAIL = ("NONE FOUND", "BIG CHUNGUS")
 # @return - returns probable song name in tuple (artist, name)
 def get_song_from_lyrics(lyrics):
     # results = googlesearch.search(lyrics + " site:genius.com", stop=maxResults)
-    results = gSearchURLs(lyrics + " site:genius.com")
-    for result in results:
-        if result.upper().endswith("LYRICS"):
-            song_url = result
-            break
-    else:
-        print("Could not find song!")
-        return FAIL
+    success = False
+    try:
+        results = gSearchURLs(lyrics + " site:genius.com")
+        for result in results:
+            if result.upper().endswith("LYRICS"):
+                song_url = result
+                break
+        success = True
+    except HTTPError:
+        try:
+            song_url = ddg_genius_url_from_lyrics(lyrics)
+            success = True
+        except BotBannedError:
+            pass # rip
+
+    if not success:
+            print("Could not find song!")
+            return FAIL
 
     return details_from_genius_url(song_url)
 
