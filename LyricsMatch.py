@@ -128,7 +128,7 @@ def ddg_genius_url_from_lyrics(lyrics):
     links = html.find_all(class_='result__url')
     for link in links:
         if link.text.upper().strip().endswith('LYRICS'):
-            return 'https://' + link
+            return 'https://' + link.text
     raise BotBannedError('oof')
 
 ## megalobiz.com
